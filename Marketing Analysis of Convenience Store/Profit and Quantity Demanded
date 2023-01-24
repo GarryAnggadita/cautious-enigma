@@ -13,7 +13,7 @@ store_3 %>% group_by(PRODUCT_TYPE) %>%
   ggplot(aes(x=PRODUCT_TYPE, y=AVERAGE)) + geom_col(width = 0.6, fill= "light blue") +
   theme(text = element_text(size=9))
   
-#Br Chart for Net Profit of Product Type
+#Bar Chart for Net Profit of Product Type
 store_3 %>% group_by(PRODUCT_TYPE) %>%
   summarise(AVERAGE_NET_PROFIT=mean(NET_PROFIT))%>%
   ggplot(aes(x=PRODUCT_TYPE, y=AVERAGE_NET_PROFIT)) + geom_col(width = 0.6, fill= "light blue") +
