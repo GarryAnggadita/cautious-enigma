@@ -1,0 +1,19 @@
+#Correlation of product ratings
+
+store <- read.csv("RATINGS.csv")
+
+cor(store$RATINGS, store$QUANTITY_DEMANDED)
+plot(store$RATINGS, store$QUANTITY_DEMANDED)
+
+cor.test(store$RATINGS, store$QUANTITY_DEMANDED)
+
+store <- dplyr::select_if(store,is.numeric)
+r <- cor(store, use = "complete.obs")
+round(r,2)
+
+ggcorrplot(r)
+
+ggcorrplot(r,
+           hc.order=TRUE,
+           type="lower",
+           lab = TRUE)
