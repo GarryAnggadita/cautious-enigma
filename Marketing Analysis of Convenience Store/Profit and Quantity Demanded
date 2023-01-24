@@ -1,0 +1,32 @@
+store <- read_csv("MY DEPARTMENTAL STORE .csv")
+
+store_1 <- mutate(store, PROFIT=SELLING_PRICE-COST_PRICE)
+View(store_1)
+store_2 <- mutate(store_1, PROFIT_PERCENT=PROFIT/COST_PRICE*100)
+View(store_2)
+store_3 <- mutate(store_2, NET_PROFIT=PROFIT*QUANTITY_DEMANDED)
+View(store_3)
+
+#Bar Chart for Quantity Demanded of Product Type
+store_3 %>% group_by(PRODUCT_TYPE) %>%
+  summarise(AVERAGE=mean(QUANTITY_DEMANDED))%>%
+  ggplot(aes(x=PRODUCT_TYPE, y=AVERAGE)) + geom_col(width = 0.6, fill= "light blue") +
+  theme(text = element_text(size=9))
+  
+#Br Chart for Net Profit of Product Type
+store_3 %>% group_by(PRODUCT_TYPE) %>%
+  summarise(AVERAGE_NET_PROFIT=mean(NET_PROFIT))%>%
+  ggplot(aes(x=PRODUCT_TYPE, y=AVERAGE_NET_PROFIT)) + geom_col(width = 0.6, fill= "light blue") +
+  theme(text = element_text(size=9))
+
+#Bar Chart for Quantity Demanded of Snacks
+store_3 %>%
+  filter(PRODUCT_TYPE == "snacks")%>%
+  ggplot(aes(x=QUANTITY_DEMANDED, y=PRODUCT_CATEGORY)) + geom_col(width = 0.6, fill= "light blue")
+  
+#Average Profit per Company
+store_3 %>% group_by(COMPANY)%>%
+  summarise(AVERAGE_PROFIT = mean(PROFIT))%>%
+  ggplot(aes(x=COMPANY, y=AVERAGE_PROFIT, group=1)) + geom_line(color="GREEN")
+  
+  
